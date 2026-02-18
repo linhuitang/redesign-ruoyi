@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* TDesign & Primary colors */
+  --td-brand-color: #0052d9;
+  --td-brand-color-hover: #266eff;
+  --td-text-color-primary: #1d1d1f;
+  --td-text-color-secondary: #00000099;
+  --td-text-color-placeholder: #00000066;
+  --td-text-color-disabled: #00000042;
+  --td-bg-color-container: #ffffff;
+  --td-bg-color-page: #f2f3f5;
+  --td-bg-color-component: #ffffff;
+  --td-gray-color-1: #f3f3f3;
+  --td-gray-color-2: #eeeeee;
+  --td-component-stroke: #e7e7e7;
+
+  /* Element Plus Variables */
+  /* Primary */
+  --el-color-primary: #0052d9;
+  --el-color-primary-light-3: #4d86e5;
+  --el-color-primary-light-5: #80a9ee;
+  --el-color-primary-light-7: #b3cbf6;
+  --el-color-primary-light-8: #cce0fb;
+  --el-color-primary-light-9: #e6f0fd;
+  --el-color-primary-dark-2: #0041ac;
+  
+  /* Success */
+  --el-color-success: #2ba471;
+  --el-color-success-light-3: #6abf9b;
+  --el-color-success-light-5: #95d1b8;
+  --el-color-success-light-7: #bfe4d4;
+  --el-color-success-light-8: #d5ede3;
+  --el-color-success-light-9: #eaf6f1;
+  --el-color-success-dark-2: #22835a;
+
+  /* Warning */
+  --el-color-warning: #e37318;
+  --el-color-warning-light-3: #eb9d5d;
+  --el-color-warning-light-5: #f1b98b;
+  --el-color-warning-light-7: #f7d5ba;
+  --el-color-warning-light-8: #fae3d1;
+  --el-color-warning-light-9: #fcf1e8;
+  --el-color-warning-dark-2: #b65c13;
+
+  /* Error / Danger */
+  --el-color-danger: #d54941;
+  --el-color-danger-light-3: #e2807a;
+  --el-color-danger-light-5: #eba4a0;
+  --el-color-danger-light-7: #f4c8c6;
+  --el-color-danger-light-8: #f7dbd9;
+  --el-color-danger-light-9: #fbedec;
+  --el-color-danger-dark-2: #aa3a34;
+  --el-color-error: #d54941;
+  --el-color-error-light-3: #e2807a;
+  --el-color-error-light-5: #eba4a0;
+  --el-color-error-light-7: #f4c8c6;
+  --el-color-error-light-8: #f7dbd9;
+  --el-color-error-light-9: #fbedec;
+  --el-color-error-dark-2: #aa3a34;
+  
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 暗色模式变量 */
+html.dark {
+  --td-brand-color: #4582E6;
+  --td-brand-color-hover: #6BA3FF;
+  --td-text-color-primary: #e5e5e5;
+  --td-text-color-secondary: #bfbfbf;
+  --td-text-color-placeholder: #8c8c8c;
+  --td-text-color-disabled: #5c5c5c;
+  --td-bg-color-container: #1f1f1f;
+  --td-bg-color-page: #141414;
+  --td-bg-color-component: #2a2a2a;
+  --td-gray-color-1: #2a2a2a;
+  --td-gray-color-2: #3a3a3a;
+  --td-component-stroke: #3a3a3a;
+  
+  color-scheme: dark;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+
+.card {
+  padding: 2em;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Splitpanes Dark Mode Adaptation */
+html.dark .splitpanes.default-theme .splitpanes__pane {
+  background-color: transparent !important;
+}
+
+html.dark .splitpanes.default-theme .splitpanes__splitter {
+  background-color: var(--el-border-color) !important;
+  border-color: var(--el-border-color) !important;
+}
+
+/* Removed hover effect - no color change on hover */
+html.dark .splitpanes.default-theme .splitpanes__splitter {
+  background-color: var(--td-bg-color-page) !important;
+}
