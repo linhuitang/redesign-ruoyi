@@ -8,6 +8,8 @@
 
 **Redesign RuoYi** 是基于 [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) 的现代化前端重构版本。我们保留了若依强大的权限管理和业务逻辑，采用 **Vue 3 + Vite + Element Plus + UnoCSS** 技术栈对其 UI/UX 进行了全面升级。
 
+🚀 **[在线演示地址](https://redesign-ruoyi.pages.dev)**
+
 ✨ **核心亮点：后端零修改**。本项目与 RuoYi-Vue 后端接口 **完全兼容**，您无需修改任何 Java 代码，只需部署本前端项目，即可获得全新的现代化管理系统体验。
 
 ## ✨ 核心特性
