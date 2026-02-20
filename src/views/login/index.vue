@@ -108,8 +108,8 @@ const codeUrl = ref('')
 const captchaEnabled = ref(true)
 
 const formData = reactive({
-  account: '',
-  password: '',
+  account: 'admin',
+  password: 'admin123',
   code: '',
   uuid: ''
 })
