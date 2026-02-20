@@ -1,39 +1,48 @@
-// functions/api/[[path]].js
-
 export async function onRequest(context) {
   const { request, params } = context;
-
-  // 1. 获取原始请求的路径（除去 /api 部分）
   const url = new URL(request.url);
-  const path = params.path.join('/');
-  const search = url.search;
 
-  // 2. 构造指向若依官方演示环境的请求地址
-  // 官方地址示例：http://vue.ruoyi.vip/prod-api/
-  const targetUrl = `http://vue.ruoyi.vip/prod-api/${path}${search}`;
+  // 1. 构造目标 URL（务必使用 https，若依官方演示地址通常强制 https）
+  const path = params.path ? params.path.join('/') : '';
+  const targetUrl = `https://vue.ruoyi.vip/prod-api/${path}${url.search}`;
 
-  // 3. 复制原始请求头，并处理可能导致问题的字段
-  const newRequestHeaders = new Headers(request.headers);
-  newRequestHeaders.set("Host", "vue.ruoyi.vip");
-  newRequestHeaders.set("Referer", "http://vue.ruoyi.vip/");
+  // 2. 克隆请求头并清理
+  // 某些 Header（如 content-length）由浏览器/CF 自动管理，手动设置可能报错
+  const newHeaders = new Headers(request.headers);
+  newHeaders.delete("Host");
+  newHeaders.delete("Referer");
 
-  // 4. 发起转发请求
-  const modifiedRequest = new Request(targetUrl, {
+  // 设置后端需要的识别头
+  newHeaders.set("Host", "vue.ruoyi.vip");
+  newHeaders.set("Origin", "https://vue.ruoyi.vip");
+  newHeaders.set("Referer", "https://vue.ruoyi.vip/");
+
+  // 3. 构建新的请求对象
+  // 使用 request.clone().body 来确保 POST 请求的 body 能被正确转发
+  const fetchOptions = {
     method: request.method,
-    headers: newRequestHeaders,
-    body: request.body,
-    redirect: "manual",
-  });
+    headers: newHeaders,
+    redirect: "follow",
+  };
 
-  const response = await fetch(modifiedRequest);
+  // 只有非 GET/HEAD 请求才携带 body
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    fetchOptions.body = request.body;
+  }
 
-  // 5. 修改响应头以允许跨域（虽然同源请求不需要，但为了保险可以加上）
-  const newResponseHeaders = new Headers(response.headers);
-  newResponseHeaders.set("Access-Control-Allow-Origin", "*");
+  try {
+    const response = await fetch(targetUrl, fetchOptions);
 
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: newResponseHeaders,
-  });
+    // 4. 包装响应，处理跨域（其实同源请求不需要，但为了演示方便加上）
+    const responseHeaders = new Headers(response.headers);
+    responseHeaders.set("Access-Control-Allow-Origin", "*");
+
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: responseHeaders,
+    });
+  } catch (err) {
+    return new Response(`Proxy Error: ${err.message}`, { status: 500 });
+  }
 }
